@@ -12,7 +12,7 @@ coeff_impair = 4
 coeff_pair = 1
 
 
-def heuristique(etat, poids, coeff, n):
+def fct_heuristique(etat, poids, coeff, n):
     """calcule l'heuristique
 
     parametres
