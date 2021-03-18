@@ -5,16 +5,15 @@ from Noeud import Noeud, swap
 class testNoeud(unittest.TestCase):
 
     def test_Noeud_mvt(self):
+        pass
+
+    def test_Noeud_mvSouth(self):
         Noeud.heuristique = print
-        n1 = Noeud(pere=None, mvt="", etat="init 1", posvide=5)
-        n2 = Noeud(pere=n1, mvt="N", etat="init 2 N", posvide=5)
-        n3 = Noeud(pere=n2, mvt="S", etat="init 3 S", posvide=5)
-        n4 = Noeud(pere=n3, mvt="E", etat="init 4 E", posvide=5)
-        n5 = Noeud(pere=n4, mvt="O", etat="init 5 O", posvide=5)
-        chemin = n5.mvts()
-        print("chemin = "+chemin)
-        self.assertEqual(chemin, "OESN")
-        self.assertEqual(len(chemin), 4)
+        Noeud.n = 3
+        n = Noeud([0, 1, 2, 3, 8, 5, 6, 7, 4], None, "", 4)
+        f = n.mvSouth()
+        self.assertEqual(f.etat, [0,1,2,3,7,5,6,8,4])
+
 
     def test_Noeud_swap(self):
         etat = [0, 1, 2, 3]
