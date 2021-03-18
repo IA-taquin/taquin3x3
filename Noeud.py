@@ -13,11 +13,11 @@ class Noeud:
     n = None  # nb de lignes/colonnes
     heuristique = None
 
-    def __init__(self, etat, pere, mvts, posvide):
+    def __init__(self, etat, pere, mvt, posvide):
         self.etat = etat
         self.h = Noeud.heuristique(etat)
         self.pere = pere
-        self.mvts = mvts  # les mvts faits pour passer de etat initial à self
+        self.mvt = mvt  # le mvt fait pour passer de pere à self
         self.posvide = posvide  # la position du trou
 
     # 2 Noeuds sont égaux si leurs états sont égaux
@@ -27,10 +27,18 @@ class Noeud:
         else:
             return False
 
-    def g(self):
-        """la longueur du plus court chemin de l'etat actuel jusqu'à la racine
+    def mvts(self):
+        """donne le chemin de l'etat actuel jusqu'à l'état initial
         """
-        return len(self.mvts)
+        if (self.pere == None):
+            return ""
+        else:
+            return self.mvt + self.pere.mvts()
+
+    def g(self):
+        """la longueur du plus chemin de l'etat actuel jusqu'à la racine
+        """
+        return len(self.mvts())
 
     def f(self):
         """fonction d'evaluation
@@ -50,9 +58,9 @@ class Noeud:
         retourne un nouveau noeud
         """
         etatfils = copy(self.etat)
-        nvpos = self.posvide+Noeud.n
+        nvpos = self.posvide+3
         swap(etatfils, self.posvide, nvpos)
-        fils = Noeud(etat=etatfils, pere=self, mvts=self.mvts+"S", posvide=nvpos)
+        fils = Noeud(etat=etatfils, pere=self, mvt="S", posvide=nvpos)
         return fils
 
     def mvNorth(self):
@@ -60,9 +68,9 @@ class Noeud:
         retourne un nouveau noeud
         """
         etatfils = copy(self.etat)
-        nvpos = self.posvide-Noeud.n
+        nvpos = self.posvide-3
         swap(etatfils, self.posvide, nvpos)
-        fils = Noeud(etat=etatfils, pere=self, mvts=self.mvts+"N", posvide=nvpos)
+        fils = Noeud(etat=etatfils, pere=self, mvt="N", posvide=nvpos)
         return fils
 
     def mvEast(self):
@@ -72,7 +80,7 @@ class Noeud:
         etatfils = copy(self.etat)
         nvpos = self.posvide+1
         swap(etatfils, self.posvide, nvpos)
-        fils = Noeud(etat=etatfils, pere=self, mvts=self.mvts+"E", posvide=nvpos)
+        fils = Noeud(etat=etatfils, pere=self, mvt="E", posvide=nvpos)
         return fils
 
     def mvWest(self):
@@ -82,7 +90,7 @@ class Noeud:
         etatfils = copy(self.etat)
         nvpos = self.posvide-1
         swap(etatfils, self.posvide, nvpos)
-        fils = Noeud(etat=etatfils, pere=self, mvts=self.mvts+"O", posvide=nvpos)
+        fils = Noeud(etat=etatfils, pere=self, mvt="O", posvide=nvpos)
         return fils
 
 ########################################
