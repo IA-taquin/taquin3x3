@@ -104,34 +104,22 @@ class Noeud:
         x = self.posvide % Noeud.n
         y = self.posvide // Noeud.n
 
-        mvtsUtiles = {
-            "N": self.mvNorth,
-            "S": self.mvSouth,
-            "E": self.mvEast,
-            "O": self.mvWest
-        }
-        try:mvtsUtiles.pop(self.mvt)
-        except: print("Expansion de la racine")
-
         # match disponible dans python 3.10 mais pas 3.9 :(
         if(x == Noeud.n-1):  # (n-1, y)
             if(y == Noeud.n-1):  # (n-1, n-1)
                 # move N, O, E
-                mvtsposs = ["N", "S", "E"]
                 # TODO verifier si noeud fils a deja ete explore
                 # si oui, alors comparer g()
                 # si non ajouter à exploré et frontiere de expansion
                 pass
             elif(y == 0):  # (n-1, 0)
                 # move O, S
-                mvtsposs = ["S", "O"]
                 # TODO verifier si noeud fils a deja ete explore
                 # si oui, alors comparer g()
                 # si non ajouter à exploré et frontiere de expansion
                 pass
             else:  # (n-1, _)
                 # move N, S, O
-                mvtsposs = ["N", "S", "O"]
                 # TODO verifier si noeud fils a deja ete explore
                 # si oui, alors comparer g()
                 # si non ajouter à exploré et frontiere de expansion
@@ -139,26 +127,18 @@ class Noeud:
         elif (x == 0):  # (0, y)
             if(y == 0):  # (0, 0)
                 # move S, E
-                mvtsposs = ["S", "E"]
                 # TODO verifier si noeud fils a deja ete explore
                 # si oui, alors comparer g()
                 # si non ajouter à exploré et frontiere de expansion
                 pass
             elif(y == Noeud.n-1):  # (0, n-1)
                 # move N, E
-                mvtsposs = ["N", "E"]
                 # TODO verifier si noeud fils a deja ete explore
                 # si oui, alors comparer g()
                 # si non ajouter à exploré et frontiere de expansion
                 pass
             else:  # (0, _)
                 # move N, S, E
-                mvtsposs = ["N", "S", "E"]
-                #pour les test en attendant Heap
-                fils = []
-                for x in (mvtsUtiles.keys() & mvtsposs):
-                    fils.append(mvtsUtiles.get(x)())
-                return fils
                 # TODO verifier si noeud fils a deja ete explore
                 # si oui, alors comparer g()
                 # si non ajouter à exploré et frontiere de expansion
@@ -166,26 +146,18 @@ class Noeud:
         else:  # (_, y)
             if(y == Noeud.n-1):  # (_, n-1)
                 # move N, O, E
-                mvtsposs = ["N", "S", "E"]
                 # TODO verifier si noeud fils a deja ete explore
                 # si oui, alors comparer g()
                 # si non ajouter à exploré et frontiere de expansion
                 pass
             elif(y == 0):  # (_, 0)
                 # move S, O, E
-                mvtsposs = ["S", "O", "E"]
                 # TODO verifier si noeud fils a deja ete explore
                 # si oui, alors comparer g()
                 # si non ajouter à exploré et frontiere de expansion
                 pass
             else:  # (_, _)
                 # move N,S, E, O
-                #test
-                fils = []
-                #pour les tests en attendant Heap
-                for x in mvtsUtiles:
-                    fils.append(mvtsUtiles.get(x)())
-                return fils
                 # TODO verifier si noeud fils a deja ete explore
                 # si oui, alors comparer g()
                 # si non ajouter à exploré et frontiere de expansion
