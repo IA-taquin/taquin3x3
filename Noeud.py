@@ -1,4 +1,7 @@
 from copy import copy
+import heapq
+#https://docs.python.org/3/library/operator.html
+#https://docs.python.org/fr/3/library/heapq.html
 
 
 def swap(etat, i, j):
@@ -104,64 +107,60 @@ class Noeud:
         x = self.posvide % Noeud.n
         y = self.posvide // Noeud.n
 
+        fils = []
+
         # match disponible dans python 3.10 mais pas 3.9 :(
         if(x == Noeud.n-1):  # (n-1, y)
             if(y == Noeud.n-1):  # (n-1, n-1)
-                # move N, O, E
-                # TODO verifier si noeud fils a deja ete explore
-                # si oui, alors comparer g()
-                # si non ajouter à exploré et frontiere de expansion
-                pass
+                # move N, O
+                fils.append(self.mvNorth()) #N
+                fils.append(self.mvWest()) #O
+                return fils
             elif(y == 0):  # (n-1, 0)
                 # move O, S
-                # TODO verifier si noeud fils a deja ete explore
-                # si oui, alors comparer g()
-                # si non ajouter à exploré et frontiere de expansion
-                pass
+                fils.append(self.mvWest()) #O
+                fils.append(self.mvSouth()) #S
+                return fils
             else:  # (n-1, _)
                 # move N, S, O
-                # TODO verifier si noeud fils a deja ete explore
-                # si oui, alors comparer g()
-                # si non ajouter à exploré et frontiere de expansion
-                pass
+                fils.append(self.mvNorth()) #N
+                fils.append(self.mvSouth()) #S
+                fils.append(self.mvWest()) #O
+                return fils
         elif (x == 0):  # (0, y)
             if(y == 0):  # (0, 0)
                 # move S, E
-                # TODO verifier si noeud fils a deja ete explore
-                # si oui, alors comparer g()
-                # si non ajouter à exploré et frontiere de expansion
-                pass
+                fils.append(self.mvSouth()) #S
+                fils.append(self.mvEast()) #E
+                return fils
             elif(y == Noeud.n-1):  # (0, n-1)
                 # move N, E
-                # TODO verifier si noeud fils a deja ete explore
-                # si oui, alors comparer g()
-                # si non ajouter à exploré et frontiere de expansion
-                pass
+                fils.append(self.mvNorth()) #N
+                fils.append(self.mvEast()) #E
+                return fils
             else:  # (0, _)
                 # move N, S, E
-                # TODO verifier si noeud fils a deja ete explore
-                # si oui, alors comparer g()
-                # si non ajouter à exploré et frontiere de expansion
-                pass
+                fils.append(self.mvNorth()) #N
+                fils.append(self.mvSouth()) #S
+                fils.append(self.mvEast()) #E
+                return fils
         else:  # (_, y)
             if(y == Noeud.n-1):  # (_, n-1)
                 # move N, O, E
-                # TODO verifier si noeud fils a deja ete explore
-                # si oui, alors comparer g()
-                # si non ajouter à exploré et frontiere de expansion
-                pass
+                fils.append(self.mvNorth()) #N
+                fils.append(self.mvWest()) #O
+                fils.append(self.mvEast()) #E
+                return fils
             elif(y == 0):  # (_, 0)
                 # move S, O, E
-                # TODO verifier si noeud fils a deja ete explore
-                # si oui, alors comparer g()
-                # si non ajouter à exploré et frontiere de expansion
-                pass
+                fils.append(self.mvSouth()) #S
+                fils.append(self.mvWest()) #O
+                fils.append(self.mvEast()) #E
+                return fils
             else:  # (_, _)
                 # move N,S, E, O
-                # TODO verifier si noeud fils a deja ete explore
-                # si oui, alors comparer g()
-                # si non ajouter à exploré et frontiere de expansion
-                pass
-            pass
-
-
+                fils.append(self.mvNorth()) #N
+                fils.append(self.mvSouth()) #S
+                fils.append(self.mvWest()) #O
+                fils.append(self.mvEast()) #E
+                return fils
