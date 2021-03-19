@@ -2,6 +2,7 @@ import unittest
 from heuristiques import *
 
 
+
 class testHeuristiques(unittest.TestCase):
 
     def test_heuristiques(self):
