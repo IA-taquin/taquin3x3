@@ -1,7 +1,7 @@
 from copy import copy
-import heapq
-#https://docs.python.org/3/library/operator.html
-#https://docs.python.org/fr/3/library/heapq.html
+from logging import exception
+
+# https://docs.python.org/3/library/operator.html
 
 
 def swap(etat, i, j):
@@ -10,6 +10,9 @@ def swap(etat, i, j):
     tmp = etat[i]
     etat[i] = etat[j]
     etat[j] = tmp
+
+###########################################################################
+###########################################################################
 
 
 class Noeud:
@@ -20,7 +23,7 @@ class Noeud:
         self.etat = etat
         self.h = Noeud.heuristique(etat)
         self.pere = pere
-        self.mvt = mvt  # le mvt fait pour passer de pere à self
+        self.mvt = mvt  # le mvt fait pour passer de pere à self NESO
         self.posvide = posvide  # la position du trou
 
     # 2 Noeuds sont égaux si leurs états sont égaux
@@ -29,6 +32,12 @@ class Noeud:
             return self.etat == o.etat
         else:
             return False
+
+    def __lt__(self, o):
+        if type(o) == type(self):
+            return self.f() < o.f()
+        else:
+            raise exception("Types differents, impossible de comparer")
 
     def mvts(self):
         """donne le chemin de l'etat actuel jusqu'à l'état initial
@@ -54,7 +63,6 @@ class Noeud:
         return tuple(self.etat)
 
 #######Deplacements################
-# TODO : deplacements
 
     def mvSouth(self):
         """deplacement du trou vers le Sud
@@ -98,8 +106,6 @@ class Noeud:
 
 ########################################
 
-    # TODO: Expansion d'un noeud
-
     def expand(self):
         """expanse un noeud
         retourne les fils
@@ -113,54 +119,54 @@ class Noeud:
         if(x == Noeud.n-1):  # (n-1, y)
             if(y == Noeud.n-1):  # (n-1, n-1)
                 # move N, O
-                fils.append(self.mvNorth()) #N
-                fils.append(self.mvWest()) #O
+                fils.append(self.mvNorth())  # N
+                fils.append(self.mvWest())  # O
                 return fils
             elif(y == 0):  # (n-1, 0)
                 # move O, S
-                fils.append(self.mvWest()) #O
-                fils.append(self.mvSouth()) #S
+                fils.append(self.mvWest())  # O
+                fils.append(self.mvSouth())  # S
                 return fils
             else:  # (n-1, _)
                 # move N, S, O
-                fils.append(self.mvNorth()) #N
-                fils.append(self.mvSouth()) #S
-                fils.append(self.mvWest()) #O
+                fils.append(self.mvNorth())  # N
+                fils.append(self.mvSouth())  # S
+                fils.append(self.mvWest())  # O
                 return fils
         elif (x == 0):  # (0, y)
             if(y == 0):  # (0, 0)
                 # move S, E
-                fils.append(self.mvSouth()) #S
-                fils.append(self.mvEast()) #E
+                fils.append(self.mvSouth())  # S
+                fils.append(self.mvEast())  # E
                 return fils
             elif(y == Noeud.n-1):  # (0, n-1)
                 # move N, E
-                fils.append(self.mvNorth()) #N
-                fils.append(self.mvEast()) #E
+                fils.append(self.mvNorth())  # N
+                fils.append(self.mvEast())  # E
                 return fils
             else:  # (0, _)
                 # move N, S, E
-                fils.append(self.mvNorth()) #N
-                fils.append(self.mvSouth()) #S
-                fils.append(self.mvEast()) #E
+                fils.append(self.mvNorth())  # N
+                fils.append(self.mvSouth())  # S
+                fils.append(self.mvEast())  # E
                 return fils
         else:  # (_, y)
             if(y == Noeud.n-1):  # (_, n-1)
                 # move N, O, E
-                fils.append(self.mvNorth()) #N
-                fils.append(self.mvWest()) #O
-                fils.append(self.mvEast()) #E
+                fils.append(self.mvNorth())  # N
+                fils.append(self.mvWest())  # O
+                fils.append(self.mvEast())  # E
                 return fils
             elif(y == 0):  # (_, 0)
                 # move S, O, E
-                fils.append(self.mvSouth()) #S
-                fils.append(self.mvWest()) #O
-                fils.append(self.mvEast()) #E
+                fils.append(self.mvSouth())  # S
+                fils.append(self.mvWest())  # O
+                fils.append(self.mvEast())  # E
                 return fils
             else:  # (_, _)
                 # move N,S, E, O
-                fils.append(self.mvNorth()) #N
-                fils.append(self.mvSouth()) #S
-                fils.append(self.mvWest()) #O
-                fils.append(self.mvEast()) #E
+                fils.append(self.mvNorth())  # N
+                fils.append(self.mvSouth())  # S
+                fils.append(self.mvWest())  # O
+                fils.append(self.mvEast())  # E
                 return fils
