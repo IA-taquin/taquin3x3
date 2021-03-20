@@ -15,7 +15,7 @@ if aSolution(etatinitial, posvide, n):
     noeud, it, r = resolve(etatinitial,
                            posvide, choix_heuristique(i, n), n)
     fin = time.time()
-    print("Solution trouvee en {} sec".format(fin-deb))
+    print("Solution trouvee en %s sec" %(fin-deb))
     print("  %s iterations, %s remplacements" % (it, r))
     print("chemin: %s" %noeud.mvts()[::-1])
     nbmvts = noeud.g()
