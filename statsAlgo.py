@@ -24,7 +24,7 @@ for k in range(1, 101):
         for v in range(0, 9):
             intaleatoire = randint(0, len(valeurs)-1)
             etat.append(valeurs.pop(intaleatoire))
-        posvide = randint(0, 8)
+        posvide = etat.index(8)
         if(aSolution(etat, posvide, n)):
             break
         else:
