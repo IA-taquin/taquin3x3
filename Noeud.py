@@ -48,7 +48,7 @@ class Noeud:
             return self.mvt + self.pere.mvts()
 
     def g(self):
-        """la longueur du plus chemin de l'etat actuel jusqu'à la racine
+        """la longueur du plus court chemin de l'etat actuel jusqu'à la racine
         """
         return len(self.mvts())
 
